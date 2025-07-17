@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "greetings")
 public class Greeting {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -15,9 +16,31 @@ public class Greeting {
     @Column(nullable = false)
     private String message;
 
+    // 기본 생성자 (필수)
+    public Greeting() {}
+
+    // Getter & Setter
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getLangCode() {
+        return langCode;
+    }
+
+    public void setLangCode(String langCode) {
+        this.langCode = langCode;
+    }
+
     public String getMessage() {
         return message;
     }
 
-    // getters and setters
+    public void setMessage(String message) {
+        this.message = message;
+    }
 }
