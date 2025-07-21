@@ -1,20 +1,20 @@
 package com.example.hello_app;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Optional;
+
 @RestController
 public class GreetingController {
-
-    private final GreetingService service;
-
-    public GreetingController(GreetingService service) {
-        this.service = service;
-    }
+    @Autowired
+    private GreetingRepository greetingRepository;
 
     @GetMapping("/greeting")
-    public String greeting(@RequestParam("lang") String langCode) {
-        return service.getMessageByLang(langCode);
+    public String getGreeting(@RequestParam String langCode) {
+        Optional<Greeting> greeting = greetingRepository.findByLangCode(langCode);
+        return greeting.map(Greeting::getMessage).orElse("Greeting not found");
     }
 }
